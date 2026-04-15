@@ -96,7 +96,14 @@ Before each experiment, think carefully about what to try. Consider:
 - What signals or indicators could help?
 - What position management improvements could reduce risk?
 
-**Research before implementing.** Use subagents to search the web for:
+**Research before implementing.** ALL research MUST be done via subagents to protect your context window. Never do web searches or read long external content in your main context. Spawn a subagent with a specific research question and have it return a concise summary (under 200 words).
+
+Example subagent prompts:
+- "Search for IMC Prosperity 3 and 4 strategy write-ups. What approaches worked for mean-reverting products? Summarize the top 3 techniques in under 200 words."
+- "Research order book imbalance as a trading signal. How is it calculated and when does it work? Summary under 200 words."
+- "Search for IMC Prosperity INTARIAN_PEPPER_ROOT or similar trending product strategies. What's the best way to trade a linear drift? Under 200 words."
+
+Research topics to explore:
 - IMC Prosperity strategy ideas, forum posts, competition write-ups from prior years
 - Market microstructure concepts relevant to the products
 - Mean-reversion and trend-following techniques that might apply
@@ -173,6 +180,13 @@ Some directions worth exploring (in rough priority order):
 These are suggestions, not a checklist. You are the researcher — come up with your own ideas too.
 
 ## Important rules
+
+**PROTECT YOUR CONTEXT**: You will be running for a long time. Context window management is critical.
+- ALL web searches and research MUST go through subagents. Never search the web in your main context.
+- Subagents must return concise summaries (under 200 words). Do not ask for raw content.
+- Redirect backtest output to `run.log` — never let it print to your context.
+- Read only what you need from `run.log` (use grep, not cat).
+- Keep your own reasoning concise. You don't need to explain every thought.
 
 **NEVER STOP**: Once the loop begins, do NOT pause to ask the human if you should continue. The human may be away and expects you to work *indefinitely* until manually stopped. If you run out of ideas, think harder — research more, try combinations of previous near-misses, try more radical approaches.
 
