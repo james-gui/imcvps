@@ -1,0 +1,15 @@
+[project]
+name = "imcpvps"
+version = "0.1.0"
+description = "Autoresearch-style optimizer for IMC Prosperity 4 trading strategies"
+requires-python = ">=3.10"
+dependencies = [
+    "prosperity4btest",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ipython>=8.18.1",
+    "matplotlib>=3.10.0",
+    "pandas>=2.2.0",
+]

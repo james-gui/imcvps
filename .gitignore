@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cloned reference repos (not part of this project)
+autoresearch/
+backtester/
+
+# Redundant data (backtester bundles round data)
+data/
+
+# Backtest output
+backtests/
+*.log
+
+# Results (tracked separately per run)
+results.tsv
+
+# Env
+.env
