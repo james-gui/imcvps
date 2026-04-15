@@ -89,8 +89,8 @@ OSMIUM_CFG = {
     "take_width":      0,
     "make_width":      2,
     "order_size":      80,
-    "inventory_limit": 40,
-    "inventory_hard":  60,
+    "inventory_limit": 50,
+    "inventory_hard":  70,
     "ema_alpha":       0.13,
 }
 
