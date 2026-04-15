@@ -87,7 +87,7 @@ ROOT_CFG = {
 
 OSMIUM_CFG = {
     "take_width":      0,
-    "make_width":      2,
+    "make_width":      1,
     "order_size":      80,
     "inventory_limit": 75,
     "inventory_hard":  80,
