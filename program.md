@@ -6,18 +6,19 @@ Autonomous strategy optimization for IMC Prosperity 4, Round 1.
 
 To set up a new experiment run, work with the user to:
 
-1. **Agree on a run tag**: propose a tag based on today's date (e.g. `apr14`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
-2. **Create the branch**: `git checkout -b autoresearch/<tag>` from current main.
-3. **Read the in-scope files**: Read these files for full context:
+1. **Install dependencies**: Run `uv sync` to install the backtester and all dependencies.
+2. **Agree on a run tag**: propose a tag based on today's date (e.g. `apr14`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
+3. **Create the branch**: `git checkout -b autoresearch/<tag>` from current main.
+4. **Read the in-scope files**: Read these files for full context:
    - `program.md` — these instructions (you're reading it now).
    - `strategies/round1/r1_v4_submit.py` — the baseline strategy. This is your starting point.
-4. **Copy baseline to working file**: `cp strategies/round1/r1_v4_submit.py strategy.py`. You will only ever edit `strategy.py`.
-5. **Understand the products**: Round 1 has two products:
+5. **Copy baseline to working file**: `cp strategies/round1/r1_v4_submit.py strategy.py`. You will only ever edit `strategy.py`.
+6. **Understand the products**: Round 1 has two products:
    - `INTARIAN_PEPPER_ROOT` — position limit 80. Price has a linear upward drift over time.
    - `ASH_COATED_OSMIUM` — position limit 80. Mean-reverting, noisy price.
-6. **Run the baseline**: Execute the backtest on the unmodified strategy to establish the baseline PnL.
-7. **Initialize results.tsv**: Create `results.tsv` with the header row, then log the baseline result.
-8. **Confirm and go**: Confirm setup looks good, then begin the experimentation loop.
+7. **Run the baseline**: Execute the backtest on the unmodified strategy to establish the baseline PnL.
+8. **Initialize results.tsv**: Create `results.tsv` with the header row, then log the baseline result.
+9. **Confirm and go**: Confirm setup looks good, then begin the experimentation loop.
 
 ## Strategy file rules
 
@@ -31,32 +32,26 @@ To set up a new experiment run, work with the user to:
 
 ## Running a backtest
 
-Run the backtest across all Round 1 days:
+Run the backtest across all Round 1 days. Redirect all output to `run.log` to keep your context clean — do NOT use tee or let output flood your context:
 
 ```bash
-uv run prosperity4btest strategy.py 1 --no-out 2>&1 | tee run.log
+uv run prosperity4btest strategy.py 1 --no-out > run.log 2>&1
 ```
 
-The output ends with a profit summary and risk metrics:
+Then extract the key metrics:
+
+```bash
+grep "final_pnl:\|sharpe_ratio:" run.log
+```
+
+Expected output:
 
 ```
-Profit summary:
-Round 1 day -2: 93,970
-Round 1 day -1: 96,560
-Round 1 day 0: 94,973
-Total profit: 285,503
-
-Risk metrics (full trading period):
   final_pnl: 285,503
   sharpe_ratio: 72.8736
-  ...
 ```
 
-Extract the key metrics:
-
-```bash
-grep "final_pnl:\|sharpe_ratio:\|Total profit:" run.log
-```
+If the grep returns nothing, the backtest crashed. Read the error with `tail -50 run.log`.
 
 **Primary metric: `final_pnl` (Total profit across all days). Higher is better.**
 **Secondary metric: `sharpe_ratio`. Higher is better.**
@@ -112,7 +107,7 @@ Validate your hypothesis with reasoning before writing code. Don't just randomly
 
 1. Implement the change in `strategy.py`.
 2. Git commit with a descriptive message.
-3. Run the backtest: `uv run prosperity4btest strategy.py 1 --no-out 2>&1 | tee run.log`
+3. Run the backtest: `uv run prosperity4btest strategy.py 1 --no-out > run.log 2>&1`
 4. Parse the results.
 
 ### Phase 3: Parameter grid search
