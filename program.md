@@ -133,7 +133,7 @@ Don't grid search everything — focus on parameters that have the most impact. 
 
 ### Phase 4: Evaluate and decide
 
-- If `final_pnl` improved → **KEEP**. The branch advances with this commit.
+- If `final_pnl` improved → **KEEP**. The branch advances with this commit. Push to GitHub: `git push origin HEAD`.
 - If `final_pnl` is worse or equal → **DISCARD**. `git reset --hard` back to the last kept commit.
 - If the backtest crashed → **CRASH**. Fix if trivial (typo, import), otherwise discard and move on.
 
