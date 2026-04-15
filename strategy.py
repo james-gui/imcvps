@@ -91,7 +91,7 @@ OSMIUM_CFG = {
     "order_size":      24,
     "inventory_limit": 30,
     "inventory_hard":  50,
-    "ema_alpha":       0.15,
+    "ema_alpha":       0.11,
 }
 
 
