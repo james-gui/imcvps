@@ -76,7 +76,7 @@ class Logger:
 logger = Logger()
 
 POSITION_LIMIT = 80
-OSMIUM_EOD     = 998_000
+OSMIUM_EOD     = 999_000
 
 ROOT_CFG = {
     "aggressive_buy_offset": 8,
