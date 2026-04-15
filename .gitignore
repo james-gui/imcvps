@@ -34,8 +34,9 @@ data/
 backtests/
 *.log
 
-# Results (tracked separately per run)
+# Results and learnings (runtime artifacts per run)
 results.tsv
+learnings.md
 
 # Env
 .env

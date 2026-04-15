@@ -137,16 +137,52 @@ Don't grid search everything — focus on parameters that have the most impact. 
 - If `final_pnl` is worse or equal → **DISCARD**. `git reset --hard` back to the last kept commit.
 - If the backtest crashed → **CRASH**. Fix if trivial (typo, import), otherwise discard and move on.
 
+### Phase 5: Update learnings
+
+After every experiment, update `learnings.md` with what you learned. This is your persistent memory across the entire run. Keep it organized by product and topic.
+
+Format:
+
+```markdown
+## Current best
+- final_pnl: 285,503 | sharpe: 72.87 (commit abc1234)
+
+## What works
+- [OSMIUM] take_width=1 is better than 2 or 3 (+5k PnL)
+- [ROOT] aggressive_buy_offset=10 outperforms 8 (+3k PnL)
+
+## What doesn't work
+- [OSMIUM] ema_alpha > 0.15 causes overreaction, PnL drops ~10k
+- [ROOT] removing passive bids hurts — we miss fills on pullbacks
+
+## Promising directions to explore
+- Order book imbalance signal for osmium fair value
+- Time-weighted position targets for root
+
+## Dead ends (don't retry)
+- Dual EMA crossover for osmium — tested 3 combos, all worse
+```
+
+**Rules for learnings.md:**
+- Read it at the START of every experiment cycle before forming your hypothesis.
+- Update it AFTER every experiment (keep, discard, or crash).
+- Keep entries concise — one line per insight.
+- Update "Current best" whenever you get a new keep.
+- Move ideas from "Promising" to "What works" / "What doesn't" / "Dead ends" as you test them.
+- If a section gets long (>20 lines), prune the least useful entries.
+
 ## The full loop
 
 LOOP FOREVER:
 
-1. **Hypothesize**: Think about what to try. Research if needed using subagents for web search.
-2. **Implement**: Edit `strategy.py`, commit, run backtest.
-3. **Grid search** (if promising): Sweep key parameters around the change.
-4. **Evaluate**: Keep or discard based on `final_pnl`.
-5. **Log**: Record every experiment in `results.tsv`.
-6. **Repeat**: Go back to step 1. Never stop.
+1. **Read `learnings.md`**: Review what's been tried, what worked, what failed. Don't repeat dead ends.
+2. **Hypothesize**: Think about what to try. Research if needed using subagents for web search.
+3. **Implement**: Edit `strategy.py`, commit, run backtest.
+4. **Grid search** (if promising): Sweep key parameters around the change.
+5. **Evaluate**: Keep or discard based on `final_pnl`.
+6. **Log**: Record every experiment in `results.tsv`.
+7. **Update `learnings.md`**: Write down what you learned from this experiment.
+8. **Repeat**: Go back to step 1. Never stop.
 
 ## Strategy guidance
 
