@@ -238,8 +238,8 @@ class Trader:
             else:
                 break
 
-        our_bid = min(best_bid + 1, round(fv) - make_width)
-        our_ask = max(best_ask - 1, round(fv) + make_width)
+        our_bid = min(best_bid + 1, math.floor(fv) - make_width)
+        our_ask = max(best_ask - 1, math.ceil(fv) + make_width)
         our_ask = max(our_ask, best_bid + 1)
         our_bid = min(our_bid, best_ask - 1)
 
