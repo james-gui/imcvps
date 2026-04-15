@@ -92,7 +92,7 @@ OSMIUM_CFG = {
     "inventory_limit": 75,
     "inventory_hard":  80,
     "ema_alpha":       0.13,
-    "fv_skew":         0.5,
+    "fv_skew":         1.0,
 }
 
 
