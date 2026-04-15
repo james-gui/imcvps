@@ -92,6 +92,7 @@ OSMIUM_CFG = {
     "inventory_limit": 75,
     "inventory_hard":  80,
     "ema_alpha":       0.13,
+    "fv_skew":         0.5,
 }
 
 
@@ -206,7 +207,7 @@ class Trader:
         if product not in ema_state:
             ema_state[product] = vwm
         ema_state[product] = alpha * vwm + (1 - alpha) * ema_state[product]
-        fv = ema_state[product]
+        fv = ema_state[product] - OSMIUM_CFG["fv_skew"] * (pos / POSITION_LIMIT)
 
         take_width = OSMIUM_CFG["take_width"]
         make_width = OSMIUM_CFG["make_width"]
